@@ -3,7 +3,7 @@ with nixpkgs;
 let
   hashesBySystem = {
     x86_64-linux = {
-      prisma-fmt-hash = "sha256-4zsJv0PW8FkGfiiv/9g0y5xWNjmRWD8Q2l2blSSBY3s=";
+      prisma-fmt-hash = "sha256-7bSbYw9QRrunI5E6Nbzp+MCh57J0HPSq8doHfjQnato=";
       query-engine-hash = "sha256-6ILWB6ZmK4ac6SgAtqCkZKHbQANmcqpWO92U8CfkFzw=";
       libquery-engine-hash = "sha256-n9IimBruqpDJStlEbCJ8nsk8L9dDW95ug+gz9DHS1Lc=";
       schema-engine-hash = "sha256-j38xSXOBwAjIdIpbSTkFJijby6OGWCoAx+xZyms/34Q=";

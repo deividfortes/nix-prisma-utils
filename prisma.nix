@@ -181,9 +181,19 @@ rec {
       packageLock = builtins.fromJSON (builtins.readFile path);
       version =
         if builtins.hasAttr "dependencies" packageLock then
-          packageLock.dependencies.${"@prisma/engines-version"}.version
+          if (builtins.hasAttr "@prisma/engines-version" packageLock.dependencies) then
+            packageLock.dependencies.${"@prisma/engines-version"}.version
+          else if (builtins.hasAttr "node_modules/@prisma/client/node_modules/@prisma/engines-version" packageLock.dependencies) then
+            packageLock.dependencies.${"node_modules/@prisma/client/node_modules/@prisma/engines-version"}.version
+          else 
+            packageLock.dependencies.${"node_modules/@prisma/client"}.dependencies.${"@prisma/engines-version"}.version
         else
-          packageLock.packages.${"node_modules/@prisma/engines-version"}.version;
+          if (builtins.hasAttr "node_modules/@prisma/engines-version" packageLock.packages) then
+            packageLock.packages.${"node_modules/@prisma/engines-version"}.version
+          else if (builtins.hasAttr "node_modules/@prisma/client/node_modules/@prisma/engines-version" packageLock.packages) then
+            packageLock.packages.${"node_modules/@prisma/client/node_modules/@prisma/engines-version"}.version
+          else 
+            packageLock.packages.${"node_modules/@prisma/client"}.dependencies.${"@prisma/engines-version"}.version;
       commit = nixpkgs.lib.lists.last (nixpkgs.lib.strings.splitString "." version);
     in
     fromCommit commit;
